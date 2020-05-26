@@ -5,6 +5,6 @@
 -------------------------------------
 
 
-Link: [Google][googlelink]
+회사: [티릴리][tirrilee]
 
-[googlelink]: https://google.com "Go google"
+[tirrilee]: https://www.tirrilee.io/ "Go tirrilee"
