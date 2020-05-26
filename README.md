@@ -11,4 +11,12 @@
 ### 작성자 : 김재민(1995.08.24)
 
 
+* * *
+
+## 사용법 : pip install -r requirements.txt 후 run.py 실행
+
+* * *
+
+## 소감 : 
+
 
