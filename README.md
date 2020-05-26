@@ -1,5 +1,5 @@
 # tirrileeTest
 
-[티릴리][tirrilee] 코딩 테스트
+[티릴리][tirrilee]
 [tirrilee]: https://www.tirrilee.io/"
 -------------------------------------
