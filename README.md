@@ -12,7 +12,11 @@
 
 
 
-## 사용법 : pip install -r requirements.txt 후 run.py 실행
+## 사용법 
+```sh
+$ pip install -r requirements.txt
+```
+후 run.py 실행하여 사용
 
 ## 소감 : 
 
