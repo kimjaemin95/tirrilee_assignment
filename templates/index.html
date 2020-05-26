@@ -5,12 +5,12 @@
 {% block style %}
     .index-page{
         padding-top:50px;
-        min-height:764px;
+        min-height:calc(100vh - 120px);
     }
     @media(max-width:764px){
         .index-page{
             padding-top:30px;
-            min-height:600px;
+            min-height:calc(100vh - 120px);
         }
     }
     .carousel-section{
@@ -20,6 +20,9 @@
         .carousel-section{
             width:100%;
         }
+    }
+    .index-page .carousel-inner{
+        height:400px;
     }
 {% endblock %}
 {% block body %}
@@ -35,10 +38,14 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="./static/img/strawberry-M-img1@2x.png" class="d-block w-100" alt="딸기">
+                            {% if user %}
+                            <img src="./static/img/main_banner_img@2x.png" class="d-block w-100" alt="구경하기" onclick="javascript:location.href='/search'">
+                            {% else %}
+                            <img src="./static/img/main_banner_img@2x.png" class="d-block w-100" alt="구경하기" onclick="javascript:location.href='/sign_in'">
+                            {% endif %}
                         </div>
                         <div class="carousel-item">
-                            <img src="./static/img/watermelon-M-img1@2x.png" class="d-block w-100" alt="수박">
+                            <img src="./static/img/email_login_logo3x.png" class="d-block w-100" alt="티릴리" onclick="javascript:location.href='/'">
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

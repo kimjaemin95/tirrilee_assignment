@@ -1,0 +1,134 @@
+{% extends 'layout.html' %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block style %}
+    .search-page{
+        padding-top:50px;
+        min-height:calc(100vh - 120px);
+    }
+    @media(max-width:764px){
+        .search-page{
+            padding-top:30px;
+            min-height:calc(100vh - 120px);
+        }
+    }
+    @media(max-width:764px){
+        .search-page .search-box{
+            height:24px;
+        }
+    }
+    .search-page .search-res-grid{
+        display:grid;
+        grid-template-columns:0.5fr 1fr;
+    }
+    @media(max-width:764px){
+        .search-page .search-res-grid{
+            display:grid;
+            grid-template-columns:1fr;
+        }
+    }
+    .search-page .search-res-grid div{
+        padding-left:15px;
+    }
+    .search-page .img-section{
+        padding-top:35px;
+        padding-bottom:50px;
+    }
+    .search-page .img-section img{
+        height:185px;
+        margin:5px;
+    }
+{% endblock %}
+{% block body %}
+<div class="search-page">
+    <!-- # 검색창 구역 # -->
+    <div class="container">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control search-box" placeholder="검색어를 입력하세요." aria-label="Recipient's username"
+                   aria-describedby="button-addon2" id="search-input">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="button-addon2">검색</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="search-res-grid">
+            <div><span>전체 검색 결과:</span><span id="total-data"></span></div>
+            <div><span>검색 요청 날짜:</span><span id="lastBuildDate"></span></div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="img-section" class="img-section">
+        </div>
+        <div>
+            <center>
+                <button class="btn btn-primary seeMore" id="seeMore" >더보기</button>
+            </center>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    $(".search-res-grid").hide();
+    $("#seeMore").val(1);
+    $(".seeMore").hide();
+
+    function search(start){
+        var keyword = $("#search-input").val()
+        if( keyword.length == false){
+            return
+        }
+        $.ajax({
+            url:'/api/v1/search',
+            data:{'keyword':keyword, 'start':start},
+            type:'GET',
+            success:function(data){
+                $(".search-res-grid").show();
+
+                var total_data = data['total'];
+                $("#total-data").html(total_data);
+
+                var lastBuildDate = data['lastBuildDate'];
+                $("#lastBuildDate").html(lastBuildDate);
+
+                var items = data['items'];
+                //console.log(items)
+                if(items.length < 30){
+                    $(".seeMore").hide();
+                }else{
+                    $(".seeMore").show();
+                }
+                for(var i=0 ; i < items.length ; i++){
+                    var item = items[i];
+                    var thumbnail = item['thumbnail'];
+                    var sizeheight = item['sizeheight'];
+                    var sizewidth = item['sizewidth'];
+
+                    var img_tag = "<img src='"+thumbnail+"' alt='"+keyword+"'>"
+                    $("#img-section").append(img_tag);
+                }
+                console.log(data)
+            },
+            error:function(e){
+                console.log(e)
+            }
+        });
+    };//END search()
+
+    $("#button-addon2").click(function(){
+        $("#seeMore").val(1)
+        var start = 1;
+        $("#img-section").html("");
+        search(start)
+    });//END #button-addon2 click function
+
+    $("#seeMore").click(function(){
+        var start = $("#seeMore").val();
+        start = Number(start) + 30;
+        $("#seeMore").val(start);
+
+        var start = $("#seeMore").val();
+        search(start)
+    });//END #seeMore click function
+{% endblock %}

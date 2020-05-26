@@ -1,0 +1,133 @@
+{% extends 'layout.html' %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block style %}
+    .sign-up-page{
+        padding-top:50px;
+        min-height:calc(100vh - 120px);
+    }
+    @media(max-width:764px){
+        .sign-up-page{
+            padding-top:30px;
+            min-height:calc(100vh - 120px);
+        }
+    }
+    .sign-up-logo{
+        width:140pt;
+    }
+    @media(max-width:764px){
+        .sign-up-logo{
+            display:none;
+        }
+    }
+    .input-section{
+        padding-top:35px;
+        padding-bottom:35px;
+    }
+    .input-section .input-item{
+        text-align:center;
+    }
+    .input-section .input-item:nth-child(1){
+        margin-bottom:10px;
+    }
+    .input-section .input-item:nth-child(1){
+        margin-bottom:4pt;
+    }
+    .input-section .input-item input{
+        width:40%;
+        border:1px solid rgb(230, 230, 230);
+        height:40px;
+        padding:5px 10px 5px 10px;
+        border-radius:2pt;
+    }
+    @media(max-width:764px){
+        .input-section .input-item input{
+            width:100%;
+            border:1px solid rgb(230, 230, 230);
+            height:22pt;
+            padding:5px 10px 5px 10px;
+            border-radius:2pt;
+            font-size:7pt;
+        }
+    }
+    .submit-items{
+        margin-top:75px;
+    }
+    @media(max-width:764px){
+        .submit-items{
+            margin-top:35px;
+        }
+    }
+    .input-section .submit-items .input-item button{
+        width:40%;
+        height:38px;
+        padding:5px 10px 5px 10px;
+        border-radius:2pt;
+    }
+    @media(max-width:764px){
+        .input-section .submit-items .input-item button{
+            width:100%;
+            height:20pt;
+            padding:5px 10px 5px 10px;
+            border-radius:2pt;
+            font-size:7pt;
+        }
+    }
+    .input-section .submit-items .input-item .sign-in-btn{
+        background:rgb(3, 121, 199);
+        color:#fff;
+    }
+    .input-section .submit-items .input-item .sign-up-btn{
+        background:#fff;
+        color:rgb(3, 121, 199);
+        border:1px solid rgb(3, 121, 199);
+    }
+{% endblock %}
+{% block body %}
+<div class="sign-up-page">
+    <div class="container">
+        <div>
+            <center>
+                <a href="/"><img src="./static/img/email_login_logo2x.png" alt="" class="sign-up-logo"></a>
+            </center>
+        </div>
+
+        <div class="input-section">
+            <form action="/sign_in" method="POST">
+                {{ sign_in_form.csrf_token }}
+                <div>
+                    <div class="input-item">
+                        <!--<input type="email" placeholder="아이디/메일주소">-->
+                        {{ sign_in_form.email(type="email", placeholder="아이디/메일주소", class="sign-in-email") }}
+                    </div>
+                    <div class="input-item">
+                        <!--<input type="password" placeholder="비밀번호">-->
+                        {{ sign_in_form.password(type="password", placeholder="비밀번호", class="sign-in-password") }}
+                        {% if sign_in_form.email.errors %}
+                            <script>
+                                $(".sign-in-email").css("border", "1px solid red")
+                            </script>
+                        {% elif sign_in_form.password.errors %}
+                            <script>
+                                $(".sign-in-password").css("border", "1px solid red")
+                            </script>
+                        {% endif %}
+
+                    </div>
+                </div>
+                <div class="submit-items">
+                    <div class="input-item">
+                        <button type="submit" class="sign-in-btn">로그인</button>
+                    </div>
+                    <div class="input-item">
+                        <button type="button" class="sign-up-btn" onclick="javascript:location.href='/sign_up'">회원가입</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}
