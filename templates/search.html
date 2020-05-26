@@ -39,6 +39,12 @@
         height:185px;
         margin:5px;
     }
+    @media(max-width:764px){
+        .search-page .img-section img{
+            height:90px;
+            margin:2px;
+        }
+    }
 {% endblock %}
 {% block body %}
 <div class="search-page">
@@ -108,7 +114,7 @@
                     var img_tag = "<img src='"+thumbnail+"' alt='"+keyword+"'>"
                     $("#img-section").append(img_tag);
                 }
-                console.log(data)
+                //console.log(data)
             },
             error:function(e){
                 console.log(e)

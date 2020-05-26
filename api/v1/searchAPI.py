@@ -21,14 +21,14 @@ def test():
     '''
     keyword = request.args.get('keyword', None)
     start = request.args.get('start', 1)
-    print(start)
+    #print(start)
     url = "https://openapi.naver.com/v1/search/image"
     query = "?query=" + urllib.parse.quote(keyword)
     option = "&sort=sim&display=30&start={start}".format(start=start)
     url_query = url + query + option
     response = requests.get(url_query, headers=headers)
     rescode = response.status_code
-    print(response.text)
+    #print(response.text)
     if (rescode == 200):
         return jsonify(loads(response.text))
     else:
