@@ -1,0 +1,108 @@
+{% extends 'layout.html' %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block style %}
+    .account-page{
+        padding-top:50px;
+        min-height:calc(100vh - 120px);
+    }
+    .account-box{
+        display:grid;
+        grid-template-columns:0.5fr 1fr;
+        border:1px solid #E7E7E7;
+        padding:20px 10px;
+        border-radius:5px;
+    }
+    .account-box .ac-img-box{
+        text-align:center;
+    }
+    .account-box .account_img{
+        border-radius:50%;
+        border:1px solid gray;
+        width:130px;
+        height:130px;
+    }
+    @media(max-width:764px){
+        .account-box .account_img{
+            border-radius:50%;
+            width:60pt;
+            height:60pt;
+        }
+    }
+    .account-box .account-detail{
+        display:grid;
+        grid-template-rows:0.3fr 1fr;
+    }
+    .account-box .user-name-box{
+        display:grid;
+        grid-template-columns:1fr 0.3fr;
+    }
+    .account-box .user-name-box div:last-child{
+        text-align:right;
+        padding-right:10px;
+    }
+    .account-box .user-name{
+        font-size:18px;
+        font-weight:bold;
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .account-box .user-detail{
+        font-size:13px;
+        color:#A8A8A8;
+    }
+    .account-box .edit-btn{
+        border:none;
+        background:#fff;
+    }
+    @media(max-width:764px){
+        .account-detail{
+            padding-left:10px;
+        }
+    }
+
+    .account-detail .edit-img{
+        width:24px;
+        height:24px;
+    }
+{% endblock %}
+{% block body %}
+<div class="account-page">
+    <!-- # 검색창 구역 # -->
+    <div class="container">
+        <div class="row">
+            <!-- # 프로필 상세 내역 # -->
+            <div class="col-md-8">
+                <div>
+                    <div>프로필</div>
+                    <div class="account-box">
+                        <div class="ac-img-box">
+                            <img src="{{ account_img_url }}" alt="User" class="account_img">
+                        </div>
+                        <div class="account-detail">
+                            <div class="user-name-box">
+                                <div class="user-name">{{ name }}</div>
+                                <div>
+                                    <button class="edit-btn" onclick="javascript:location.href='/account/change'">
+                                        <img src="{{ url_for('static', filename='img/edit_icon.png') }}" alt="Edit" class="edit-img">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="user-detail">{{ description }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- # 개인 메뉴 # -->
+            <div class="col-md-4">
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+{% endblock %}

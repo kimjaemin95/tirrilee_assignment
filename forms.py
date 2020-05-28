@@ -2,9 +2,15 @@
 
 from models import *
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField
 from wtforms.validators import DataRequired, EqualTo
 
+
+class AccountEdit(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    description = StringField('description', validators=[DataRequired()])
+    account_img = FileField('Update Account Picture', validators=[FileAllowed(['jpg', 'png'])])
 
 class SignUpForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])

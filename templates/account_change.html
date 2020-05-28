@@ -1,0 +1,205 @@
+{% extends 'layout.html' %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block style %}
+    input{
+        padding:5px;
+        margin:5px auto;
+    }
+    .account-page{
+        padding-top:50px;
+        min-height:calc(100vh - 120px);
+    }
+    .account-box{
+        display:grid;
+        grid-template-columns:0.5fr 1fr;
+        border:1px solid #E7E7E7;
+        padding:20px 10px;
+        border-radius:5px;
+    }
+    @media(max-width:764px){
+        .account-box{
+            display:grid;
+            grid-template-columns:1fr;
+            grid-template-rows:1fr 1fr;
+        }
+    }
+    .account-box .ac-img-box{
+        text-align:center;
+    }
+    .account-box .account_img{
+        border-radius:50%;
+        border:1px solid gray;
+        width:130px;
+        height:130px;
+    }
+    @media(max-width:764px){
+        .account-box .account_img{
+            border-radius:50%;
+            width:60pt;
+            height:60pt;
+        }
+    }
+    .account-box .account_img:hover{
+        cursor:pointer;
+        border:3px solid #fff;
+    }
+    .account-box .account-detail{
+        display:grid;
+        grid-template-rows:0.3fr 1fr;
+    }
+    .account-box .user-name-box{
+        display:grid;
+        grid-template-columns:1fr 0.3fr;
+    }
+    .account-box .user-name-box div:last-child{
+        text-align:right;
+        padding-right:10px;
+    }
+    @media(max-width:764px){
+        .account-box .user-name-box{
+            display:grid;
+            grid-template-columns:1fr
+        }
+        .account-box .user-name-box input{
+            width:100%;
+        }
+    }
+    .account-box .user-name{
+        font-size:18px;
+        font-weight:bold;
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .account-box .user-detail{
+        font-size:13px;
+        color:#A8A8A8;
+    }
+    @media(max-width:764px){
+        .account-detail{
+        }
+    }
+    .account-detail .edit-img{
+        width:24px;
+        height:24px;
+    }
+    .account-detail .description-edit{
+        width:100%;
+        height:100%;
+        resize: none;
+        y-overflow:auto;
+    }
+
+    .account-box .edit-confirm{
+        color:rgb(3, 121, 199);
+    }
+    .edit-confirm:nth-child(3){
+         display:none
+    }
+    @media(max-width:764px){
+        .edit-confirm:nth-child(2){
+            display:none;
+        }
+        .edit-confirm:nth-child(3){
+            display:block;
+            margin-top:10pt;
+        }
+    }
+    .account-box .edit-confirm button{
+        border:none;
+        background:#fff;
+        color:rgb(3, 121, 199);
+    }
+    @media(max-width:764px){
+        .account-box .edit-confirm button{
+            background:rgb(245, 245, 245);
+        }
+    }
+    .account-box .edit-confirm:hover{
+        font-weight:bold;
+        cursor:pointer;
+    }
+    input{
+        border-radius:5px;
+        border:1px solid #E7E7E7;
+        padding-left:5px;
+    }
+    .ac-img-box input{
+        border:none;
+        padding-left:5px;
+    }
+    @media(max-width:764px){
+        .ac-img-box div input{
+            width:100%;
+            text-align:center !important;
+            padding-left:30%;
+        }
+    }
+{% endblock %}
+{% block body %}
+<div class="account-page">
+    <!-- # 검색창 구역 # -->
+    <div class="container">
+        <div class="row">
+            <!-- # 프로필 상세 내역 # -->
+            <div class="col-md-8">
+                <div>
+                    <div>프로필</div>
+                    <form action="/account/change" method="POST" enctype="multipart/form-data">
+                        {{ form.csrf_token }}
+                        <div class="account-box">
+                            <div class="ac-img-box">
+                                <img src="{{ account_img_url }}" alt="User" class="account_img">
+                                <div>{{ form.account_img(class='form-control-file upload-file') }}</div>
+                                {% if form.account_img.errors %}
+                                    {% for error in form.account_img.errors %}
+                                        <span class="text-danger">업로드 지원 파일 : jpg, png</span><br>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="account-detail">
+                                <div class="user-name-box">
+                                    <div class="user-name">
+                                        <!-- <input type="text" placeholder="{{ name }}" id="edit-name" name="edit_name">-->
+                                        {{ form.name(type="text", id="edit-name") }}
+                                        <script>
+                                            $("#edit-name").attr("placeholder", "{{name}}");
+                                            $("#edit-name").attr("value", "{{name}}");
+                                        </script>
+                                    </div>
+                                    <div class="edit-confirm"><button type="submit">완료</button></div>
+                                </div>
+                                <div class="user-detail">
+                                    <!-- <textarea name="" placeholder="{{ description }}" class="description-edit" id="edit-description"></textarea>-->
+                                    {{ form.description(type="text", class="description-edit", id="edit-description") }}
+                                    <script>
+                                        $("#edit-description").attr("placeholder", "{{description}}");
+                                        $("#edit-description").attr("value", "{{description}}");
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="edit-confirm"><center><button type="submit">완료</button></center></div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- # 개인 메뉴 # -->
+            <div class="col-md-4">
+                <div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+
+<!--    $(".edit-confirm").click(function(){-->
+<!--        var name = $("#edit-name").val();-->
+<!--        var description = $("#edit-description").val();-->
+<!--        console.log(name, description)-->
+<!--    });-->
+{% endblock %}
